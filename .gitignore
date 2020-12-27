@@ -3,14 +3,15 @@ course-remote-info.yaml
 main.py
 requirements.txt
 test_helper.py
-/.idea/
-/Multilingual Online Translator/All of them/
-/Multilingual Online Translator/Faster translation/
-/Multilingual Online Translator/Over the internet/
-/Multilingual Online Translator/Repeater/
-/Multilingual Online Translator/Simultaneous translation/
-/Multilingual Online Translator/Translation/
-/Multilingual Online Translator/Unexpected/
-/Multilingual Online Translator/lesson-info.yaml
+.idea/
+Multilingual Online Translator/All of them/
+Multilingual Online Translator/Faster translation/
+Multilingual Online Translator/Over the internet/
+Multilingual Online Translator/Repeater/
+Multilingual Online Translator/Simultaneous translation/
+Multilingual Online Translator/Translations
+Multilingual Online Translator/Translation/
+Multilingual Online Translator/Unexpected/
+Multilingual Online Translator/lesson-info.yaml
 Multilingual Online Translator/task/tests.py
-/Multilingual Online Translator/task/translator/__pycache__/
+Multilingual Online Translator/task/translator/__pycache__/
