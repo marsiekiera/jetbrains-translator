@@ -15,3 +15,5 @@ Multilingual Online Translator/Unexpected/
 Multilingual Online Translator/lesson-info.yaml
 Multilingual Online Translator/task/tests.py
 Multilingual Online Translator/task/translator/__pycache__/
+*.yaml
+*.html
