@@ -1,6 +1,6 @@
 course-info.yaml
 course-remote-info.yaml
-main.py
+/main.py
 requirements.txt
 test_helper.py
 .idea/
