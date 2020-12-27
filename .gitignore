@@ -12,5 +12,5 @@ test_helper.py
 /Multilingual Online Translator/Translation/
 /Multilingual Online Translator/Unexpected/
 /Multilingual Online Translator/lesson-info.yaml
-/Multilingual Online Translator/task/test.py
+Multilingual Online Translator/task/test.py
 /Multilingual Online Translator/task/translator/__pycache__/
