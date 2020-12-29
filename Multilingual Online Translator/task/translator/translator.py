@@ -1,28 +1,51 @@
 import requests
-
 from bs4 import BeautifulSoup
 
 
 def user_choice():
-    lang_choice = ""
-    while lang_choice not in ['en', 'fr']:
-        lang_choice = str(input(
-            '''Type "en" if you want to translate from French into English, 
-            or "fr" if you want to translate from English into French:\n '''))
-    word_to_trans = str(input('Type the word you want to translate: \n'))
-    print(f'You chose "{lang_choice}" as the language to translate "{word_to_trans}" to.')
-    return [lang_choice, word_to_trans]
+    language_dict = {
+        1: "Arabic",
+        2: "German",
+        3: "English",
+        4: "Spanish",
+        5: "French",
+        6: "Hebrew",
+        7: "Japanese",
+        8: "Dutch",
+        9: "Polish",
+        10: "Portuguese",
+        11: "Romanian",
+        12: "Russian",
+        13: "Turkish"
+    }
+    print("Hello, you're welcome to the translator. Translator supports:")
+    for lang in language_dict:
+        print(str(lang) + ". " + language_dict[lang])
+    while True:
+        source_language_num = int(input("Type the number of your language:\n"))
+        if source_language_num in range(1, len(language_dict) + 1):
+            break
+    while True:
+        target_language_num = int(input("Type the number of language you want to translate to:\n"))
+        if target_language_num in range(1, len(language_dict) + 1) and target_language_num != source_language_num:
+            break
+    word_to_translate = str(input('Type the word you want to translate: \n'))
+    return {
+        "source_language": language_dict[source_language_num].lower(),
+        "target_language": language_dict[target_language_num].lower(),
+        "word_to_translate": word_to_translate.lower()
+    }
 
 
-def site_request(lang, word):
-    lang_url = "english-french/" if lang == "fr" else "french-english/"
-    url = "https://context.reverso.net/translation/" + lang_url + word
+def site_request(user_choice_dict):
+    lang_url = user_choice_dict["source_language"] + "-" + user_choice_dict["target_language"] + "/"
+    url = "https://context.reverso.net/translation/" + lang_url + user_choice_dict["word_to_translate"]
     r = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
     if r.status_code == 200:
-        print("200 OK\n")
+        return url
     else:
-        return exit()
-    return url
+        print("Connection error")
+        exit()
 
 
 def list_of_words(words):
@@ -46,7 +69,7 @@ def print_sentences(sentences_list):
             counter = 1
 
 
-def translation(url, lang_choice):
+def translation(url, target_language):
     r = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
     soup = BeautifulSoup(r.content, 'html.parser')
     words = soup.find_all("a", ["ltr", "dict"])
@@ -56,23 +79,17 @@ def translation(url, lang_choice):
             sentence = span.text.strip()
             if sentence:
                 sentences_list.append(sentence)
-    print("Context examples:\n")
-    if lang_choice == "fr":
-        print("French Translations:")
-    else:
-        print("English Translations:")
+
+    print(f"{target_language.capitalize()} Translations:")
     list_of_words(words)
-    print()
-    if lang_choice == "fr":
-        print("French Examples:")
-    else:
-        print("English Examples:")
+    print(f"\n{target_language.capitalize()} Examples:")
     print_sentences(sentences_list)
 
 
 def main():
-    lang_choice, word_to_trans = user_choice()
-    translation(site_request(lang_choice, word_to_trans), lang_choice)
+    user_choice_dict = user_choice()
+    url = site_request(user_choice_dict)
+    translation(url, user_choice_dict["target_language"])
 
 
 main()
