@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import sys
 
 # Dictionary of all language
 language_dict = {
@@ -24,31 +25,63 @@ def user_choice():
     Return dictionary with 4 item:
     source_language (str), target_language(str),
     word_to_translate (str), all_language (bool)"""
+    args = sys.argv
+    source_languages_list = []
+    for language in language_dict:
+        source_languages_list.append(language_dict[language].lower())
+    target_languages_list = source_languages_list
+    target_languages_list.append("all")
+    if len(args) != 4:
+        print("""The script should be called with three arguments, first - source language, 
+        second - target language, third - word to translate""")
+        exit()
+    source_language = args[1].lower()
+    target_language = args[2].lower()
+    word_to_translate = args[3].lower()
     all_languages = False
-    print("Hello, you're welcome to the translator. Translator supports:")
-    for lang in language_dict:
-        print(str(lang) + ". " + language_dict[lang])
-    while True:
-        source_language_num = int(input("Type the number of your language:\n"))
-        if source_language_num in range(1, len(language_dict) + 1):
-            break
-    while True:
-        target_language_num = int(input(
-            "Type the number of language you want to translate to or '0' to translate to all languages:\n"))
-        if target_language_num in range(0, len(language_dict) + 1) and target_language_num != source_language_num:
-            break
-    word_to_translate = str(input('Type the word you want to translate: \n'))
-    if target_language_num == 0:
+    if ((source_language not in source_languages_list) or
+            (target_language not in target_languages_list)):
+        exit()
+    if target_language == "all":
         all_languages = True
-        target_language = "all"
-    else:
-        target_language = language_dict[target_language_num].lower()
     return {
-        "source_language": language_dict[source_language_num].lower(),
+        "source_language": source_language,
         "target_language": target_language,
-        "word_to_translate": word_to_translate.lower(),
+        "word_to_translate": word_to_translate,
         "all_languages": all_languages
     }
+
+
+# def user_choice():
+#     """Get the value from the user.
+#     Return dictionary with 4 item:
+#     source_language (str), target_language(str),
+#     word_to_translate (str), all_language (bool)"""
+#     all_languages = False
+#     print("Hello, you're welcome to the translator. Translator supports:")
+#     for lang in language_dict:
+#         print(str(lang) + ". " + language_dict[lang])
+#     while True:
+#         source_language_num = int(input("Type the number of your language:\n"))
+#         if source_language_num in range(1, len(language_dict) + 1):
+#             break
+#     while True:
+#         target_language_num = int(input(
+#             "Type the number of language you want to translate to or '0' to translate to all languages:\n"))
+#         if target_language_num in range(0, len(language_dict) + 1) and target_language_num != source_language_num:
+#             break
+#     word_to_translate = str(input('Type the word you want to translate: \n'))
+#     if target_language_num == 0:
+#         all_languages = True
+#         target_language = "all"
+#     else:
+#         target_language = language_dict[target_language_num].lower()
+#     return {
+#         "source_language": language_dict[source_language_num].lower(),
+#         "target_language": target_language,
+#         "word_to_translate": word_to_translate.lower(),
+#         "all_languages": all_languages
+#     }
 
 
 def create_url(user_choice_dict):
