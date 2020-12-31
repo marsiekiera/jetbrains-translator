@@ -52,38 +52,6 @@ def user_choice():
     }
 
 
-# def user_choice():
-#     """Get the value from the user.
-#     Return dictionary with 4 item:
-#     source_language (str), target_language(str),
-#     word_to_translate (str), all_language (bool)"""
-#     all_languages = False
-#     print("Hello, you're welcome to the translator. Translator supports:")
-#     for lang in language_dict:
-#         print(str(lang) + ". " + language_dict[lang])
-#     while True:
-#         source_language_num = int(input("Type the number of your language:\n"))
-#         if source_language_num in range(1, len(language_dict) + 1):
-#             break
-#     while True:
-#         target_language_num = int(input(
-#             "Type the number of language you want to translate to or '0' to translate to all languages:\n"))
-#         if target_language_num in range(0, len(language_dict) + 1) and target_language_num != source_language_num:
-#             break
-#     word_to_translate = str(input('Type the word you want to translate: \n'))
-#     if target_language_num == 0:
-#         all_languages = True
-#         target_language = "all"
-#     else:
-#         target_language = language_dict[target_language_num].lower()
-#     return {
-#         "source_language": language_dict[source_language_num].lower(),
-#         "target_language": target_language,
-#         "word_to_translate": word_to_translate.lower(),
-#         "all_languages": all_languages
-#     }
-
-
 def create_url(user_choice_dict):
     """Create url containing source and target languages and word, from dictionary
     Return url (str) end target_language (str) if website allows for translation,
